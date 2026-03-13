@@ -1,0 +1,2 @@
+# TuanLe_Bayes-DSS-A-Clinical-Decision-Support-Module-for-Comparing-Treatment-Policies-
+Bayes-DSS is a Clinical Decision Support module that uses Bayesian Decision Theory to compare breast cancer treatment policies. It integrates AI diagnostic priors and historical error rates with a 2-compartment tumor simulation to calculate Expected Utility, providing a mathematically robust, risk-averse safety net for clinical decision-making.
