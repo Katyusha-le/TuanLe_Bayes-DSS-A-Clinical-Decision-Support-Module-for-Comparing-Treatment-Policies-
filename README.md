@@ -78,7 +78,7 @@ To ensure clinical credibility, the variables in this model are not arbitrary; t
 *(Note: The simulation engine automatically converts the per-cycle drug efficacy constants into daily kill fractions based on the user's selected cycle length D)*
 
 *   **Treatment Cycle Length ($D$):** Set to 21 days by default, mapping to standard neoadjuvant regimens evaluated in clinical practice (Keam et al., 2017).
-*   **Toxicity Penalty Weight ($\lambda$):** Represents the "Disutility of Treatment". Instead of using a single fixed number, the model sweeps across a range of $\lambda$ values (e.g., 0.01 to 1.0) to perform **Decision Curve Analysis (DCA)**. A low $\lambda$ (e.g., 0.05) mimics mild side effects or a highly resilient patient, while a high $\lambda$ (>0.15) mimics severe Grade 3 toxicity (Peasgood et al., 2010; Lloyd et al., 2006).
+*   **Toxicity Penalty Weight ($\lambda$):** Represents the "Disutility of Treatment". Instead of using a single fixed number, the model sweeps across a range of $\lambda$ values (e.g., 0.01 to 1.0) to perform **Decision Curve Analysis (DCA)**. A low $\lambda$ mimics mild side effects or a highly resilient patient, while a high $\lambda$ mimics severe toxicity.
 
 ---
 
@@ -120,14 +120,10 @@ This module is built to run interactively in a Jupyter or Google Colab notebook.
 ## VII. References
 The mathematical modeling and parameter calibrations used in this framework are supported by the following literature:
 
-Ubezio, P., & Cameron, D. (2008). Cell killing and resistance in pre-operative breast cancer chemotherapy. BMC Cancer, 8(1), 201.
+Ubezio, P., & Cameron, D. (2008). Cell killing and resistance in pre-operative breast cancer chemotherapy. BMC Cancer, 8(1), 201. https://doi.org/10.1186/1471-2407-8-201
 
-Zhang, S., et al. (2017). Correlation Factors Analysis of Breast Cancer Tumor Volume Doubling Time Measured by 3D-Ultrasound. Medical Science Monitor, 23, 3147–3153.
+Zhang, S., Ding, Y., Zhou, Q., Wang, C., Wu, P., & Dong, J. (2017). Correlation Factors Analysis of Breast Cancer Tumor Volume Doubling Time Measured by 3D-Ultrasound. Medical science monitor : international medical journal of experimental and clinical research, 23, 3147–3153. https://doi.org/10.12659/msm.901566
 
-Peasgood, T., et al. (2010). Impact of breast cancer on health-related quality of life.
+Gatenby, R. A., Silva, A. S., Gillies, R. J., & Frieden, B. R. (2009). Adaptive therapy. Cancer research, 69(11), 4894–4903. https://doi.org/10.1158/0008-5472.CAN-08-3658
 
-Lloyd, A., et al. (2006). Health state utility values for breast cancer.
-
-Gatenby, R. A., et al. (2009). Adaptive therapy. Cancer research, 69(11).
-
-Keam, B., et al. (2017). (Source for standardizing the 21-day clinical chemotherapy cycle D).
+Keam, B., Im, S. A., Lee, K. H., Han, S. W., Oh, D. Y., Kim, J. H., Lee, S. H., Han, W., Kim, D. W., Kim, T. Y., Park, I. A., Noh, D. Y., Heo, D. S., & Bang, Y. J. (2011). Ki-67 can be used for further classification of triple negative breast cancer into two subtypes with different response and prognosis. Breast cancer research : BCR, 13(2), R22. https://doi.org/10.1186/bcr2834
