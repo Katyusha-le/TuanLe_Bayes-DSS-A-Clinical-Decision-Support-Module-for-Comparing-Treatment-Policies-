@@ -28,11 +28,11 @@ The architecture of Bayes-DSS decouples the heavy image-processing deep learning
 5. **Patient Bayesian Evaluation (The Decision Logic):** Retrieves the patient's individual diagnostic probabilities and updates them using the conditional probabilities from the Confusion Matrix. It then calculates the Expected Utility ($EU$) via the dot product of these joint probabilities and the Utility Matrix, mathematically hedging against AI misclassification.
 6. **Decision Extraction:** Extracts the multi-dimensional $EU$ grid for each patient. It scans the grid to find the specific cycle length yielding the maximum Expected Utility for each policy option, ultimately flagging the mathematically absolute best strategies (including ties) to give doctors comparable alternatives.
 
-
+![Module 2 Architecture](module-2-architecture.png)
 
 ---
 
-## Mathematical Foundations: Tumor Dynamics and Decision Theory
+## III. Mathematical Foundations: Tumor Dynamics and Decision Theory
 The core logic of Bayes-DSS relies on two mathematical frameworks: a 2-compartment differential model for tumor biology, and Bayesian utility for risk mitigation.
 
 ### 1. Discrete 2-Compartment Tumor Model
@@ -60,18 +60,29 @@ This guarantees that if the AI is uncertain, the model mathematically hedges its
 
 ---
 
-## Constants and Parameters
+## IV. Constants and Parameters
 To ensure clinical credibility, the variables in this model are not arbitrary; they are mapped directly from published oncological and pharmacoeconomic literature.
 
 *   **Biological Constants ($S_0, R_0, r_s, r_r, e_s, e_r$):** 
     *   Intrinsic growth rates ($r_s$) are derived from clinical Tumor Volume Doubling Time (TVDT) studies (e.g., Zhang et al., 2017). Resistant cells are modeled to grow at 50% the rate of sensitive cells due to fitness costs.
     *   Drug efficacy rates ($e_s, e_r$) are derived from pathologic complete response (pCR) tracking in neoadjuvant chemotherapy studies (e.g., Ubezio & Cameron, 2008). 
+
+| Tumor Subtype | $S_0$ (Initial Sensitive) | $R_0$ (Initial Resistant) | $r_s$ (Daily Growth) | $r_r$ (Daily Growth) | $e_s$ (Efficacy / Cycle) | $e_r$ (Efficacy / Cycle) |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| **Benign** | 1.00 | 0.00 | 0.00076 | 0.00000 | 0.00 | 0.00 |
+| **Luminal A** | 0.95 | 0.05 | 0.00270 | 0.00135 | 0.20 | 0.0325 |
+| **Luminal B** | 0.90 | 0.10 | 0.00330 | 0.00165 | 0.35 | 0.0055 |
+| **HER2+** | 0.825 | 0.175 | 0.00380 | 0.00304 | 0.60 | 0.125 |
+| **Triple-Negative** | 0.60 | 0.40 | 0.00550 | 0.00440 | 0.55 | 0.085 |
+
+*(Note: The simulation engine automatically converts the per-cycle drug efficacy constants into daily kill fractions based on the user's selected cycle length $D$)*
+
 *   **Treatment Cycle Length ($D$):** Set to 21 days by default, mapping to standard neoadjuvant regimens evaluated in clinical practice (Keam et al., 2017).
 *   **Toxicity Penalty Weight ($\lambda$):** Represents the "Disutility of Treatment". Instead of using a single fixed number, the model sweeps across a range of $\lambda$ values (e.g., 0.01 to 1.0) to perform **Decision Curve Analysis (DCA)**. A low $\lambda$ (e.g., 0.05) mimics mild side effects or a highly resilient patient, while a high $\lambda$ (>0.15) mimics severe Grade 3 toxicity (Peasgood et al., 2010; Lloyd et al., 2006).
 
 ---
 
-## Result & Interpretations
+## V. Result & Interpretations
 The output of the module is an extensive multi-dimensional grid exported as a CSV file (e.g., `optimal_treatments_full_grid.csv`). 
 
 ### How to Read the Output Data
