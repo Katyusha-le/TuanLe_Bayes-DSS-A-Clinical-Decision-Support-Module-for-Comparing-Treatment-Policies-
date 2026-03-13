@@ -75,7 +75,7 @@ To ensure clinical credibility, the variables in this model are not arbitrary; t
 | **HER2+** | 0.825 | 0.175 | 0.00380 | 0.00304 | 0.60 | 0.125 |
 | **Triple-Negative** | 0.60 | 0.40 | 0.00550 | 0.00440 | 0.55 | 0.085 |
 
-*(Note: The simulation engine automatically converts the per-cycle drug efficacy constants into daily kill fractions based on the user's selected cycle length $D$)*
+*(Note: The simulation engine automatically converts the per-cycle drug efficacy constants into daily kill fractions based on the user's selected cycle length D)*
 
 *   **Treatment Cycle Length ($D$):** Set to 21 days by default, mapping to standard neoadjuvant regimens evaluated in clinical practice (Keam et al., 2017).
 *   **Toxicity Penalty Weight ($\lambda$):** Represents the "Disutility of Treatment". Instead of using a single fixed number, the model sweeps across a range of $\lambda$ values (e.g., 0.01 to 1.0) to perform **Decision Curve Analysis (DCA)**. A low $\lambda$ (e.g., 0.05) mimics mild side effects or a highly resilient patient, while a high $\lambda$ (>0.15) mimics severe Grade 3 toxicity (Peasgood et al., 2010; Lloyd et al., 2006).
@@ -96,28 +96,38 @@ The CSV contains the following columns: `Patient_ID`, `True_Subtype`, `Predicted
 
 ---
 
-## Installation and Usage Guide
+## VI. Installation and Usage Guide
 
 ### Prerequisites
 ```bash
-pip install numpy pandas scikit-learn ipywidgets
-Inputs Required
-The module is designed to run in a Jupyter/Colab environment using ipywidgets for interactive configuration. It requires two primary data inputs, typically stored in a .npz file from your AI testing script:
-y_pred: An array of shape (num_patients, num_classes) containing the softmax probability priors for each patient.
-y_test: An array containing the ground-truth labels, used exclusively to generate the confusion_matrix (which simulates the AI's historical track record).
-Note: In this specific repository, the model ingests output arrays from a custom multimodal Xception network. Users wishing to apply this DSS to their own classifiers only need to replace the y_pred and y_test variables in the Data Ingestion block with their own numpy arrays.
-Usage
-Run the script in a Jupyter Notebook.
-Adjust the clinical boundaries in the generated UI (Days per cycle, maximum cycles, lambda range steps).
-Click "Run Simulation & Extract All".
-The system will compute the continuous biological physics, apply the Bayesian transformations, and output a CSV dataframe containing the comparative Expected Utility of every policy for every patient.
+pip install numpy pandas scikit-learn ipywidgets\
+```
+This module is built to run interactively in a Jupyter or Google Colab notebook. It requires two primary data inputs, typically loaded from an `.npz` file generated during your AI's testing phase:
+
+*   **`y_pred`**: An array containing the AI's predicted softmax probabilities (priors) for each patient, formatted as `(number_of_patients, number_of_classes)`.
+*   **`y_test`**: An array of the actual ground-truth labels. The system uses this exclusively to generate a **confusion matrix**, which serves as a historical track record of your AI's accuracy.
+
+> **Note:** This specific repository is pre-configured to ingest prediction arrays from a custom multimodal Xception network. However, if you wish to apply this Decision Support System (DSS) to your own classifier, you simply need to swap out the `y_pred` and `y_test` variables in the Data Ingestion block with your own NumPy arrays.
+
+### Usage
+
+1. **Run the script** inside your Jupyter Notebook environment.
+2. **Adjust the clinical parameters** using the generated visual dashboard to set your boundaries (e.g., Days per cycle, Maximum cycles, and the Lambda toxicity penalty steps).
+3. **Click the "Run Simulation & Extract All" button**.
+4. **Review your results:** The engine will automatically simulate the continuous biological tumor physics, apply Bayesian probability transformations, and export a CSV dataframe. This file will clearly display the comparative **Expected Utility** of every treatment policy for every individual patient.
 
 --------------------------------------------------------------------------------
-References
+## VII. References
 The mathematical modeling and parameter calibrations used in this framework are supported by the following literature:
+
 Ubezio, P., & Cameron, D. (2008). Cell killing and resistance in pre-operative breast cancer chemotherapy. BMC Cancer, 8(1), 201.
+
 Zhang, S., et al. (2017). Correlation Factors Analysis of Breast Cancer Tumor Volume Doubling Time Measured by 3D-Ultrasound. Medical Science Monitor, 23, 3147–3153.
+
 Peasgood, T., et al. (2010). Impact of breast cancer on health-related quality of life.
+
 Lloyd, A., et al. (2006). Health state utility values for breast cancer.
+
 Gatenby, R. A., et al. (2009). Adaptive therapy. Cancer research, 69(11).
+
 Keam, B., et al. (2017). (Source for standardizing the 21-day clinical chemotherapy cycle D).
