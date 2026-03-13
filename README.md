@@ -85,6 +85,8 @@ To ensure clinical credibility, the variables in this model are not arbitrary; t
 ## V. Result & Interpretations
 The output of the module is an extensive multi-dimensional grid exported as a CSV file (e.g., `optimal_treatments_full_grid.csv`). 
 
+![Bayes DSS Sample](bayes-dss-sample.png)
+
 ### How to Read the Output Data
 The CSV contains the following columns: `Patient_ID`, `True_Subtype`, `Predicted_Subtype`, `Lambda_Weight`, `Policy_Option`, `Recommended_Cycles`, `Expected_Utility`, `Is_Optimal_Choice`.
 
