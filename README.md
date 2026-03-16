@@ -46,6 +46,8 @@ $$R_{t+1} = R_t \cdot (1 + r_r) \cdot (1 - e_r \cdot a_t)$$
 *   **$e_s, e_r$**: Daily drug efficacy (kill fraction). 
 *   **$a_t \in [1]$**: The clinical dose intensity administered at time $t$.
 
+> **Note:** For the proof of this formula, see "Proof for 2-compartment Tumor Model (Vietnamese - English).pdf"
+
 ### 2. Clinical Value Function
 The physical outcome of a policy $\pi$ on a specific tumor subtype $s$ after $T$ total cycles is evaluated using a Value function $V$. It calculates the trade-off between the final tumor burden and the cumulative toxicity suffered by the patient:
 
