@@ -94,9 +94,38 @@ The CSV contains the following columns: `Patient_ID`, `True_Subtype`, `Predicted
 *   **Understanding Ties (⭐ YES vs Alternative):** The model explicitly flags all mathematically optimal choices. If both "Aggressive" and "Adaptive" policies are flagged as `⭐ YES` for 1 cycle, it means the tumor biology has not yet crossed the threshold required for the Adaptive policy to reduce the dose. Their biological outcomes and toxicity penalties are identical up to that point.
 *   **Diagnostic Mismatches:** By filtering for patients where `True_Subtype != Predicted_Subtype`, you can observe the Bayesian Safety Net in action. You will see how the Expected Utility defaults to safer, compromised regimens when the AI makes a highly uncertain prediction.
 
+## VI. Interactive Sensitivity Analysis Dashboard
+
+In clinical reality, biological constants vary between patients, and deep learning predictions carry inherent uncertainty. To ensure the clinical safety and robustness of the recommended treatments, this repository includes an interactive **Sensitivity Analysis Dashboard**. 
+
+This tool allows you to isolate a specific biological variable and apply a mathematical "shock" (a controlled range of variance) to it, observing how those changes impact the final Expected Utility (EU) and treatment recommendations.
+
+### How to Use It
+
+
+
+Run the Sensitivity Analysis cell in the Jupyter Notebook to generate the interactive UI. You will configure two main sections:
+
+**1. Shock Configuration (What are we testing?)**
+*   **Target Subtype & Treatment:** Select the specific tumor subtype (e.g., Triple-Negative) and the treatment policy you want to evaluate. You can select a specific policy or track the *All Optimal (Global Best)* option.
+*   **Variable to Shock:** Choose the exact biological constant you want to test. You can shock the Initial Tumor Size ($S_0, R_0$), Intrinsic Growth Rates ($r_s, r_r$), or Drug Efficacies ($e_s, e_r$).
+*   **Shock Range:** Define the `Min Shock`, `Max Shock`, and `Increment Step`. For example, you can test how the model behaves if the drug efficacy ($e_s$) fluctuates from -0.3 (30% less effective) to +0.3 (30% more effective) in steps of 0.05.
+
+**2. Static Parameters (What stays constant?)** 
+*   Lock in the environmental variables for the simulation. You must set a fixed Toxicity Penalty Weight ($\lambda$), Cycle Duration ($D$), Maximum Cycles ($n$), and your specific Adaptive/Intermittent policy thresholds.
+
+Once configured, click **"Run Sensitivity Analysis"**. The engine will recalculate the entire Bayesian Utility matrix iteratively across your defined shock range.
+
+### How to Interpret the Results
+
+The resulting output reveals the mathematical stability of your treatment decision. When reviewing the results, look for these two primary clinical indicators:
+
+*   **Identifying Clinical "Tipping Points":** As the shocked variable increases or decreases, you will observe the exact threshold where the model changes its mind. For example, if you incrementally increase the resistant growth rate ($r_r$), you will see the precise mathematical point where the model shifts from recommending 6 cycles down to 1 cycle to avoid useless toxicity. 
+*   **Assessing Decision Robustness:** If the optimal policy and recommended cycle count remain the same despite massive shocks to the biological constants, the treatment decision is highly **robust**. If the recommendations swing wildly following a tiny fractional change (e.g., a 0.05 shift in $e_s$), the clinical decision is highly **sensitive** to that variable, alerting the physician that they should proceed with caution and close monitoring.
+
 ---
 
-## VI. Installation and Usage Guide
+## VII. Installation and Usage Guide
 
 ### Prerequisites
 ```bash
@@ -117,7 +146,7 @@ This module is built to run interactively in a Jupyter or Google Colab notebook.
 4. **Review your results:** The engine will automatically simulate the continuous biological tumor physics, apply Bayesian probability transformations, and export a CSV dataframe. This file will clearly display the comparative **Expected Utility** of every treatment policy for every individual patient.
 
 --------------------------------------------------------------------------------
-## VII. References
+## VIII. References
 The mathematical modeling and parameter calibrations used in this framework are supported by the following literature:
 
 Ubezio, P., & Cameron, D. (2008). Cell killing and resistance in pre-operative breast cancer chemotherapy. BMC Cancer, 8(1), 201. https://doi.org/10.1186/1471-2407-8-201
