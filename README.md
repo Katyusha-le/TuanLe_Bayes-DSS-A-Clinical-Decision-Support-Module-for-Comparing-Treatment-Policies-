@@ -1,6 +1,10 @@
 # TuanLe_Bayes-DSS-A-Clinical-Decision-Support-Module-for-Comparing-Treatment-Policies-
 Bayes-DSS is a Clinical Decision Support module that uses Bayesian Decision Theory to compare breast cancer treatment policies. It integrates AI diagnostic priors and historical error rates with a 2-compartment tumor simulation to calculate Expected Utility, providing a mathematically robust, risk-averse safety net for clinical decision-making.
 
+Author: Le Phuoc Tuan
+
+Personal email: phuoctuanle111@gmail.com
+
 ## I. Introduction
 **Bayes-DSS** is a Clinical Decision Support System (CDSS) module that uses Bayesian Decision Theory to evaluate and compare cancer treatment policies. Instead of blindly trusting an AI classifier's top prediction, this module translates the AI's probabilistic uncertainty directly into human-understandable clinical consequences (tumor reduction vs. drug toxicity). 
 
