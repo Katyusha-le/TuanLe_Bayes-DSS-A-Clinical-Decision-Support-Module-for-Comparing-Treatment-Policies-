@@ -123,7 +123,7 @@ The resulting output reveals the mathematical stability of your treatment decisi
 *   **Identifying Clinical "Tipping Points":** As the shocked variable increases or decreases, you will observe the exact threshold where the model changes its mind. For example, if you incrementally increase the resistant growth rate ($r_r$), you will see the precise mathematical point where the model shifts from recommending 6 cycles down to 1 cycle to avoid useless toxicity. 
 *   **Assessing Decision Robustness:** If the optimal policy and recommended cycle count remain the same despite massive shocks to the biological constants, the treatment decision is highly **robust**. If the recommendations swing wildly following a tiny fractional change (e.g., a 0.05 shift in $e_s$), the clinical decision is highly **sensitive** to that variable, alerting the physician that they should proceed with caution and close monitoring.
 
-
+![Sensitivity analysis result](sensitivity-analysis-result.png)
 
 ---
 
