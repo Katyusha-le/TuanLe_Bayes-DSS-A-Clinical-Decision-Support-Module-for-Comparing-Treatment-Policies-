@@ -87,6 +87,7 @@ To ensure clinical credibility, the variables in this model are not arbitrary; t
 ## V. Result & Interpretations
 The output of the module is an extensive multi-dimensional grid exported as a CSV file (e.g., `optimal_treatments_full_grid.csv`). 
 
+Below are first 9 rows of Patient 2 (3 treatment outcomes per lambda).
 ![Bayes DSS Sample](bayes-dss-sample.png)
 
 ### How to Read the Output Data
